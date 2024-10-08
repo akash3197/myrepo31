@@ -7,17 +7,11 @@ on:
       - "requests/*"
     paths:
       - "requests/**"
-    branches-ignore:
-      - "main"
-      - "master"
-    paths-ignore:
-      - "/*"  # Exclude changes at the root level
 
   pull_request:
     branches:
       - "request/*"
       - "requests/*"
-      - "feature/fs"
 
 jobs:
   handle-request:
