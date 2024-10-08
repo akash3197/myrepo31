@@ -1,17 +1,14 @@
 name: Handle new requests
 
 on:
-  push:
+  pull_request:
     branches:
       - "request/*"
       - "requests/*"
     paths:
       - "requests/**"
-
-  pull_request:
-    branches:
-      - "request/*"
-      - "requests/*"
+    paths-ignore:
+      - "/*" 
 
 jobs:
   handle-request:
