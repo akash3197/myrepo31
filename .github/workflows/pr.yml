@@ -1,0 +1,17 @@
+name: Hande new requests
+
+on:
+  pull_request:
+    branches:
+      - feature/fs   # later change it to master
+      
+jobs:
+  handle-request:
+    runs-on:
+      - ubuntu
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.1.7
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
