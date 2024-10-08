@@ -5,6 +5,7 @@ on:
     branches:
       - "request/*"
       - "requests/*"
+      - "feature/fs"
     paths:
       - "requests/**"
       - "!/*" 
