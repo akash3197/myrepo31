@@ -1,14 +1,26 @@
-name: Hande new requests
+name: Handle new requests
 
 on:
+  push:
+    branches:
+      - "request/*"
+      - "requests/*"
+    paths:
+      - "requests/**"
+    branches-ignore:
+      - "main"
+      - "master"
+    paths-ignore:
+      - "/*"  # Exclude changes at the root level
+
   pull_request:
     branches:
-      - feature/fs   # later change it to master
-      
+      - "request/*"
+      - "requests/*"
+
 jobs:
   handle-request:
-    runs-on:
-      - ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4.1.7
