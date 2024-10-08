@@ -8,7 +8,7 @@ on:
       - "feature/fs"
     paths:
       - "requests/**"
-      - "!/*" 
+      
 jobs:
   handle-request:
     runs-on: ubuntu-latest
