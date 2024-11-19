@@ -6,8 +6,6 @@ on:
 jobs:
   handle-request:
     runs-on: ubuntu-latest
-    env:
-      ENVIRONMENT: DEV  # Set the environment for the workflow
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
