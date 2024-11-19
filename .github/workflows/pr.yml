@@ -11,7 +11,7 @@ on:
       
 jobs:
   handle-request:
-    if: startsWith(github.head_ref, 'requests/') || startsWith(github.head_ref, 'request/')
+    #if: startsWith(github.head_ref, 'requests/') || startsWith(github.head_ref, 'request/')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
