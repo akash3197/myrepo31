@@ -1,0 +1,6 @@
+# CODEOWNERS file for authorizing users
+# Authorize specific users
+* @akash3197
+
+# Optionally, add teams or additional users
+#* @org-name/team-name

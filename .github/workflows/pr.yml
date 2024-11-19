@@ -2,15 +2,51 @@ name: Handle new requests
 
 on:
   workflow_dispatch:
+
 jobs:
   handle-request:
-    env:
-      ENVIRONMENT: run
-    #if: startsWith(github.head_ref, 'requests/') || startsWith(github.head_ref, 'request/')
     runs-on: ubuntu-latest
+    env:
+      ENVIRONMENT: DEV  # Set the environment for the workflow
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4.1.7
-        with:
-          fetch-depth: 0
-          ref: ${{ github.head_ref }}
+        uses: actions/checkout@v2
+
+      - name: Check Authorization
+        id: check-authorization
+        run: |
+          # Path to CODEOWNERS file
+          CODEOWNERS_FILE="./CODEOWNERS"
+
+          # User triggering the workflow
+          USER="${{ github.actor }}"
+
+          # Check if CODEOWNERS file exists
+          if [[ ! -f $CODEOWNERS_FILE ]]; then
+            echo "CODEOWNERS file not found!"
+            exit 1
+          fi
+
+          # Parse CODEOWNERS for any valid entries for the workflow
+          MATCHES=$(grep '@' $CODEOWNERS_FILE | tr -s ' ' | cut -d' ' -f2-)
+
+          # Verify if the user is explicitly listed in CODEOWNERS
+          AUTHORIZED=false
+          for OWNER in $MATCHES; do
+            if [[ "$OWNER" == "@$USER" ]]; then
+              AUTHORIZED=true
+              break
+            fi
+          done
+
+          # If the user is not authorized, fail the workflow
+          if [[ $AUTHORIZED == "false" ]]; then
+            echo "User $USER is not authorized to run this workflow."
+            exit 1
+          else
+            echo "User $USER is authorized to run this workflow."
+          fi
+
+      - name: Proceed with Workflow Execution
+        run: |
+          echo "Authorization successful for user: ${{ github.actor }}"
